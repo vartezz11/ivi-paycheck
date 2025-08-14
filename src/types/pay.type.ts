@@ -1,8 +1,8 @@
 export enum Pay {
-  TIP = "tip",
-  SALARY = "salary",
-  BONUS = "bonus",
-  NONE = "none",
+  TIP = "TIP",
+  SALARY = "SALARY",
+  BONUS = "BONUS",
+  NONE = "NONE",
 }
 export type PayType = {
   amount: number | undefined;

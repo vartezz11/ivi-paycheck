@@ -31,21 +31,36 @@ export const DialogComponent = ({
   open,
   onClose,
   date,
+  updateStats,
 }: DialogComponentProps) => {
   const [pay, setPay] = useState<PayType>({
     amount: undefined,
-    date: date || new Date(),
+    date: date,
     type: Pay.NONE,
   });
   const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
 
-  function handleOnClick() {
+  async function handleOnClick() {
     setOpenSnackBar(false);
     if (pay.amount === undefined || pay.type === Pay.NONE) {
       setOpenSnackBar(true);
       return;
     }
-    console.log(pay);
+
+    try {
+      await fetch("/api/paychecks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...pay, date: date }),
+      });
+    } catch (error) {
+      console.error("Failed to save paycheck:", error);
+    } finally {
+      updateStats?.();
+      onClose();
+    }
   }
 
   function handleOnClose() {

@@ -35,15 +35,16 @@ const CustomSwitch = styled(Switch)({
   },
 });
 
-export const Calendar = ({ onDateChange }: CalendarProps) => {
+export const Calendar = ({ onDateChange, updateStats }: CalendarProps) => {
   const [checked, setChecked] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
 
-  function handleOnDateChange(value: PickerValue): void {
+  async function handleOnDateChange(value: PickerValue): Promise<void> {
     if (checked) {
       setDate(value?.toDate());
       setShowDialog(true);
+      return;
     }
   }
 
@@ -75,6 +76,7 @@ export const Calendar = ({ onDateChange }: CalendarProps) => {
       </div>
       <DialogComponent
         open={showDialog}
+        updateStats={updateStats}
         onClose={() => {
           setShowDialog(false);
         }}
