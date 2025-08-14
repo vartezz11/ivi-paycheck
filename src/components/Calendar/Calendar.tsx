@@ -49,7 +49,7 @@ export const Calendar = ({ onDateChange }: CalendarProps) => {
 
   return (
     <>
-      <div className=" flex flex-col justify-center ">
+      <div className=" flex flex-col justify-center flex-1">
         <div className="flex justify-center items-center mr-32">
           <CustomSwitch
             className=""

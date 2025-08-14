@@ -15,13 +15,15 @@ export default function Home() {
 
   return (
     <Background>
-      <div className="flex flex-col gap-10 justify-center">
-        <Header />
+      <div className="min-h-screen w-full flex flex-col">
+        <div className="flex flex-col gap-10 justify-center flex-1">
+          <Header />
 
-        <Calendar onDateChange={(date) => handleOnDateChange(date!)} />
+          <Calendar onDateChange={(date) => handleOnDateChange(date!)} />
+        </div>
+        <Statistic selectedDate={selectedDate} />
+        <Footer />
       </div>
-      <Statistic selectedDate={selectedDate} />
-      <Footer />
     </Background>
   );
 }
