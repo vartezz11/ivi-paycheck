@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <Background>
       <div className="min-h-screen w-full flex flex-col">
-        <div className="flex flex-col gap-10 justify-center flex-1">
+        <div className="flex flex-col gap-10 justify-center">
           <Header />
 
           <Calendar onDateChange={(date) => handleOnDateChange(date!)} />

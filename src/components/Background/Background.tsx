@@ -8,7 +8,7 @@ export const Background = ({ children }: { children: React.ReactNode }) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="min-h-screen w-full flex flex-col fixed"
+      className="h-full w-full flex flex-col fixed"
     >
       {children}
     </div>
