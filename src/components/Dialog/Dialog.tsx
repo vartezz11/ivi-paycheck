@@ -116,7 +116,7 @@ export const DialogComponent = ({
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              value={pay.type === Pay.NONE ? "" : pay.type}
+              value={Pay.TIP}
               onChange={(event) => {
                 setPay({ ...pay, type: event.target.value as Pay });
               }}
