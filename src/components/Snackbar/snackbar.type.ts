@@ -1,4 +1,5 @@
-export interface SnackBar {
+export default interface SnackBarComponentProps {
   open: boolean;
-  onOpen: (open: boolean) => void;
+  setOpen: (open: boolean) => void;
+  message: string;
 }

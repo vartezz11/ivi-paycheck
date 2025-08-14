@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Button,
   colors,
   Dialog,
   FormControl,
@@ -14,7 +13,7 @@ import {
 } from "@mui/material";
 import { DialogComponentProps } from "./dialog.type";
 import EuroIcon from "@mui/icons-material/Euro";
-import { use, useState } from "react";
+import { useState } from "react";
 import { Pay, PayType } from "@/types/pay.type";
 import StyledButton from "../Button/Button";
 import { SnackbarComponent } from "../Snackbar/Snackbar";
@@ -38,7 +37,7 @@ export const DialogComponent = ({
     date: date || new Date(),
     type: Pay.NONE,
   });
-  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
 
   function handleOnClick() {
     setOpenSnackBar(false);
@@ -136,7 +135,7 @@ export const DialogComponent = ({
       </StyledDialog>
       <SnackbarComponent
         open={openSnackBar}
-        setOpen={(open) => setOpenSnackBar(open)}
+        setOpen={(open: boolean) => setOpenSnackBar(open)}
         message={"Please fill in all fields before submitting bebi."}
       />
     </>

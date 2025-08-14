@@ -5,7 +5,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useState } from "react";
 import { DialogComponent } from "../Dialog/Dialog";
 import { PickerValue } from "@mui/x-date-pickers/internals";
-import { SnackbarComponent } from "../Snackbar/Snackbar";
 import { CalendarProps } from "./calendar.type";
 
 const StyledDateCalendar = styled(DateCalendar)({

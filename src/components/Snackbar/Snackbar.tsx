@@ -1,5 +1,5 @@
 import { Button, Snackbar } from "@mui/material";
-import { SnackBarComponentProps } from "./snackbar.type";
+import SnackBarComponentProps from "./snackbar.type";
 
 export const SnackbarComponent = ({
   open,
