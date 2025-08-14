@@ -36,7 +36,7 @@ export const DialogComponent = ({
   const [pay, setPay] = useState<PayType>({
     amount: undefined,
     date: date,
-    type: Pay.NONE,
+    type: Pay.TIP,
   });
   const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
 
@@ -116,7 +116,7 @@ export const DialogComponent = ({
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
-              value={Pay.TIP}
+              value={pay.type}
               onChange={(event) => {
                 setPay({ ...pay, type: event.target.value as Pay });
               }}
