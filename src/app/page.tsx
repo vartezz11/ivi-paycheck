@@ -63,10 +63,18 @@ export default function Home() {
     setId(null);
   }
 
+  function handleOnUpdateStats(date: Date): void {
+    if (!date) {
+      console.error("No date selected for update");
+      return;
+    }
+    handleOnDateChange(date);
+  }
+
   return (
     <Background>
       <div className="min-h-screen w-full flex flex-col">
-        <div className="flex flex-col gap-10 justify-center">
+        <div className="flex flex-col gap-5 justify-center">
           <Header />
 
           <Calendar
@@ -77,8 +85,9 @@ export default function Home() {
         <Statistic
           selectedDate={selectedDate}
           selectedAmount={selectedAmount}
+          updateStats={(date) => handleOnUpdateStats(new Date(date))}
           paycheckStats={paycheckStats}
-          updateStats={() => setDeleted()}
+          deletePay={() => setDeleted()}
           id={id}
         />
         <Footer />

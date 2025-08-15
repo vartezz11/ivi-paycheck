@@ -5,5 +5,6 @@ export interface StatisticProps {
   selectedAmount: number | null;
   paycheckStats: PaycheckStats | null;
   id: string | null;
-  updateStats?: () => void;
+  deletePay?: () => void;
+  updateStats?: (date: Date) => void;
 }

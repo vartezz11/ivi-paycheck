@@ -1,6 +1,9 @@
+import { PayType } from "@/types/pay.type";
+
 export interface DialogComponentProps {
   open: boolean;
   onClose: () => void;
   date?: Date;
-  updateStats?: () => void;
+  paytype?: PayType | null;
+  updateStats?: (date: Date) => void;
 }

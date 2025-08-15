@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { DialogComponentProps } from "./dialog.type";
 import EuroIcon from "@mui/icons-material/Euro";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pay, PayType } from "@/types/pay.type";
 import StyledButton from "../Button/Button";
 import { SnackbarComponent } from "../Snackbar/Snackbar";
@@ -31,14 +31,26 @@ export const DialogComponent = ({
   open,
   onClose,
   date,
+  paytype,
   updateStats,
 }: DialogComponentProps) => {
   const [pay, setPay] = useState<PayType>({
-    amount: undefined,
-    date: date,
-    type: Pay.TIP,
+    amount: paytype?.amount ?? undefined,
+    date: paytype?.date || new Date(),
+    type: paytype?.type ?? Pay.TIP,
   });
+
   const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (open) {
+      setPay({
+        amount: paytype?.amount ?? undefined,
+        date: paytype?.date || new Date(),
+        type: paytype?.type ?? Pay.TIP,
+      });
+    }
+  }, [open, paytype, date]);
 
   async function handleOnClick() {
     setOpenSnackBar(false);
@@ -46,29 +58,56 @@ export const DialogComponent = ({
       setOpenSnackBar(true);
       return;
     }
-
-    try {
-      await fetch("/api/paychecks", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...pay, date: date }),
-      });
-    } catch (error) {
-      console.error("Failed to save paycheck:", error);
-    } finally {
-      updateStats?.();
-      onClose();
+    if (paytype) {
+      try {
+        const response = await fetch("/api/paychecks", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...pay, id: paytype.id }),
+        });
+        const data = await response.json();
+        console.log("Paycheck updated:", data, pay.date);
+      } catch (error) {
+        console.error("Failed to save paycheck:", error);
+      } finally {
+        onClose();
+        setPay({
+          amount: undefined,
+          date: date,
+          type: Pay.TIP,
+        });
+      }
+    } else {
+      try {
+        await fetch("/api/paychecks", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...pay, date: date }),
+        });
+      } catch (error) {
+        console.error("Failed to save paycheck:", error);
+      } finally {
+        onClose();
+        setPay({
+          amount: undefined,
+          date: date,
+          type: Pay.TIP,
+        });
+      }
     }
+    updateStats?.(pay.date!);
   }
 
   function handleOnClose() {
     onClose();
     setPay({
       amount: undefined,
-      date: date || new Date(),
-      type: Pay.NONE,
+      date: date,
+      type: Pay.TIP,
     });
   }
 
@@ -136,7 +175,7 @@ export const DialogComponent = ({
               handleOnClick();
             }}
           >
-            Submit
+            {paytype ? "Update" : "Submit"}
           </StyledButton>
           {date && (
             <p className=" text-center font-oswald">
