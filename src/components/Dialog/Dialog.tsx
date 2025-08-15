@@ -177,11 +177,13 @@ export const DialogComponent = ({
           >
             {paytype ? "Update" : "Submit"}
           </StyledButton>
-          {date && (
+          {(date || pay.date) && (
             <p className=" text-center font-oswald">
               Selected Date:{" "}
               <span className=" text-green-800">
-                {date.toLocaleDateString()}
+                {date
+                  ? date.toLocaleDateString()
+                  : new Date(pay.date!).toLocaleDateString()}
               </span>
             </p>
           )}
