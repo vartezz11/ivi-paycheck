@@ -5,6 +5,7 @@ export enum Pay {
   NONE = "NONE",
 }
 export type PayType = {
+  id?: string;
   amount: number | undefined;
   date: Date | undefined;
   type: Pay | undefined;

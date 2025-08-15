@@ -91,8 +91,7 @@ export async function PUT(req: NextRequest) {
       body.amount === undefined ||
       body.date === undefined ||
       body.type === "NONE" ||
-      body.id === undefined ||
-      body.id === null
+      body.id === undefined
     ) {
       return NextResponse.json({
         success: false,
