@@ -12,6 +12,3 @@ CREATE TABLE "public"."Paycheck" (
 
     CONSTRAINT "Paycheck_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "Paycheck_date_key" ON "public"."Paycheck"("date");
