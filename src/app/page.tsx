@@ -17,7 +17,7 @@ export default function Home() {
     null
   );
   const [id, setId] = useState<string | null>(null);
-  const [view, setView] = useState<"TIP" | "SALARY">("SALARY");
+  const [view, setView] = useState<"TIP" | "SALARY">("TIP");
 
   const fetchPaycheckStats = useCallback(async (): Promise<void> => {
     const response = await fetch(`/api/paychecks/stats?view=${view}`, {
