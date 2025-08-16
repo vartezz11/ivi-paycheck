@@ -7,4 +7,5 @@ export interface StatisticProps {
   id: string | null;
   deletePay?: () => void;
   updateStats?: (date: Date) => void;
+  view: "SALARY" | "TIP";
 }

@@ -35,20 +35,27 @@ export async function GET(req: NextRequest) {
     const query = req.nextUrl.searchParams;
     const paramName = query.get("date");
     const idParam = query.get("id");
+    const view = query.get("view") || "tip";
     if (!paramName && !idParam) {
       return NextResponse.json({
         success: false,
         error: "Either date or id parameter is required",
       });
     }
-    const paycheck = await prisma.paycheck.findFirst({
-      where: {
-        OR: [
-          paramName ? { date: new Date(paramName) } : undefined,
-          idParam ? { id: idParam } : undefined,
-        ].filter(Boolean),
-      },
-    });
+
+    let paycheck;
+    if (idParam) {
+      paycheck = await prisma.paycheck.findUnique({
+        where: { id: idParam },
+      });
+    } else {
+      paycheck = await prisma.paycheck.findFirst({
+        where: {
+          payType: view.toUpperCase(),
+          date: paramName ? new Date(paramName) : undefined,
+        },
+      });
+    }
 
     return NextResponse.json({ success: true, result: paycheck });
   } catch (e) {

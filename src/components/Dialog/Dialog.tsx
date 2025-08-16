@@ -46,7 +46,7 @@ export const DialogComponent = ({
     if (open) {
       setPay({
         amount: paytype?.amount ?? undefined,
-        date: paytype?.date || new Date(),
+        date: date ?? (paytype?.date || new Date()),
         type: paytype?.type ?? Pay.TIP,
       });
     }
@@ -99,6 +99,7 @@ export const DialogComponent = ({
         });
       }
     }
+
     updateStats?.(pay.date!);
   }
 

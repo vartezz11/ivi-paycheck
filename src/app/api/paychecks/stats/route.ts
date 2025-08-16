@@ -1,15 +1,23 @@
 import prisma from "@/lib/prisma";
+import { NextRequest } from "next/server";
 export type PaycheckStats = {
   total: number;
   min: number;
   max: number;
 };
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const { searchParams } = req.nextUrl;
+    const view = searchParams.get("view") || "tip";
+
     const paychecks: {
       amount: number;
-    }[] = await prisma.paycheck.findMany({});
+    }[] = await prisma.paycheck.findMany({
+      where: {
+        payType: view.toUpperCase(),
+      },
+    });
     const arrAmount = paychecks.map((val) => val.amount);
 
     const min = arrAmount.length > 0 ? Math.min(...arrAmount) : 0;

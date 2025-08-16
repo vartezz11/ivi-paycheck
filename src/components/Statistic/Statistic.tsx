@@ -12,6 +12,7 @@ export const Statistic = ({
   id,
   deletePay,
   updateStats,
+  view,
 }: StatisticProps) => {
   const [open, setOpen] = useState(false);
   const [paytype, setPaytype] = useState<PayType | null>(null);
@@ -65,9 +66,19 @@ export const Statistic = ({
 
     setOpen(true);
   }
+  const mapView = {
+    single: {
+      TIP: "tip",
+      SALARY: "salary",
+    },
+    plural: {
+      TIP: "tips",
+      SALARY: "salaries",
+    },
+  };
   return (
     <>
-      <div className="mt-10  rounded-xl p-4 shadow-lg">
+      <div className=" mt-2  rounded-xl p-4 shadow-lg">
         <div className="flex gap-2 justify-center items-center ">
           <p
             className="text-center font-oswald text-xl text-emerald-700 bg-white px-3 py-1 rounded-lg shadow grow
@@ -75,13 +86,13 @@ export const Statistic = ({
           flex flex-col justify-center
         "
           >
-            Max tip amount: <br />
+            Max {mapView.single[view]} amount: <br />
             <span className="text-emerald-900 font-bold">
               MKD {paycheckStats?.max}
             </span>
           </p>
           <p className="text-center font-oswald text-xl text-emerald-700 bg-white px-3 py-1 rounded-lg shadow grow">
-            Min tip amount: <br />
+            Min {mapView.single[view]} amount: <br />
             <span className="text-emerald-900 font-bold">
               MKD {paycheckStats?.min}
             </span>
@@ -89,7 +100,7 @@ export const Statistic = ({
         </div>
         <div className="flex flex-col gap-1 mt-4 ">
           <p className="text-center font-oswald text-xl text-emerald-700 bg-white px-3 py-1 rounded-lg shadow  mb-4">
-            Total tips paid:{" "}
+            Total {mapView.plural[view]} paid:{" "}
             <span className="text-emerald-900 font-bold">
               MKD {paycheckStats?.total}
             </span>
