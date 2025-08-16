@@ -37,11 +37,12 @@ export default function Home() {
 
   useEffect(() => {
     fetchPaycheckStats();
-  }, [id, fetchPaycheckStats, view]);
+  }, [id, fetchPaycheckStats]);
 
   function setDeleted() {
     setSelectedAmount(0);
     setId(null);
+    fetchPaycheckStats();
   }
 
   async function handleOnDateChange(date: Date): Promise<void> {
