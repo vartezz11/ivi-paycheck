@@ -90,6 +90,7 @@ export default function Home() {
           <Calendar
             onDateChange={(date) => handleOnDateChange(date!)}
             updateStats={(date) => handleOnUpdateStats(date)}
+            view={view}
           />
         </div>
         <div className=" flex items-center justify-center gap-2 bg-dark-slate-gray  rounded-lg mt-2">
