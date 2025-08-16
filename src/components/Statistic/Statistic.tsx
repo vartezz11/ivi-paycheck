@@ -146,6 +146,7 @@ export const Statistic = ({
         onClose={() => setOpen(false)}
         paytype={paytype}
         updateStats={updateStats}
+        view={view}
       />
     </>
   );

@@ -6,4 +6,5 @@ export interface DialogComponentProps {
   date?: Date;
   paytype?: PayType | null;
   updateStats?: (date: Date) => void;
+  view: "TIP" | "SALARY";
 }

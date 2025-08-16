@@ -33,11 +33,12 @@ export const DialogComponent = ({
   date,
   paytype,
   updateStats,
+  view,
 }: DialogComponentProps) => {
   const [pay, setPay] = useState<PayType>({
     amount: paytype?.amount ?? undefined,
     date: paytype?.date || new Date(),
-    type: paytype?.type ?? Pay.TIP,
+    type: paytype?.type ?? view === "TIP" ? Pay.TIP : Pay.SALARY,
   });
 
   const [openSnackBar, setOpenSnackBar] = useState<boolean>(false);
@@ -47,10 +48,10 @@ export const DialogComponent = ({
       setPay({
         amount: paytype?.amount ?? undefined,
         date: date ?? (paytype?.date || new Date()),
-        type: paytype?.type ?? Pay.TIP,
+        type: paytype?.type ?? view === "TIP" ? Pay.TIP : Pay.SALARY,
       });
     }
-  }, [open, paytype, date]);
+  }, [open, paytype, date, view]);
 
   async function handleOnClick() {
     setOpenSnackBar(false);
@@ -95,7 +96,7 @@ export const DialogComponent = ({
         setPay({
           amount: undefined,
           date: date,
-          type: Pay.TIP,
+          type: view === "TIP" ? Pay.TIP : Pay.SALARY,
         });
       }
     }
@@ -108,7 +109,7 @@ export const DialogComponent = ({
     setPay({
       amount: undefined,
       date: date,
-      type: Pay.TIP,
+      type: view === "TIP" ? Pay.TIP : Pay.SALARY,
     });
   }
 

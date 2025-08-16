@@ -35,7 +35,11 @@ const CustomSwitch = styled(Switch)({
   },
 });
 
-export const Calendar = ({ onDateChange, updateStats }: CalendarProps) => {
+export const Calendar = ({
+  onDateChange,
+  updateStats,
+  view,
+}: CalendarProps) => {
   const [checked, setChecked] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -76,6 +80,7 @@ export const Calendar = ({ onDateChange, updateStats }: CalendarProps) => {
       </div>
       <DialogComponent
         open={showDialog}
+        view={view}
         updateStats={updateStats}
         onClose={() => {
           setShowDialog(false);
