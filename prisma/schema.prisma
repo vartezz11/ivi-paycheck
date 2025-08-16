@@ -28,6 +28,6 @@ model Paycheck{
   payType   Pay
   date      DateTime @unique
 
-  createdAt DateTime @default(now())
+  createdAt DateTime 
   updatedAt DateTime @updatedAt
 }

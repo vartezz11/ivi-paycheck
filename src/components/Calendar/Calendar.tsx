@@ -6,6 +6,7 @@ import { useState } from "react";
 import { DialogComponent } from "../Dialog/Dialog";
 import { PickerValue } from "@mui/x-date-pickers/internals";
 import { CalendarProps } from "./calendar.type";
+import { SnackbarComponent } from "../Snackbar/Snackbar";
 
 const StyledDateCalendar = styled(DateCalendar)({
   backgroundColor: "#fff",
@@ -39,17 +40,35 @@ export const Calendar = ({
   onDateChange,
   updateStats,
   view,
+  canAdd,
 }: CalendarProps) => {
   const [checked, setChecked] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
-
   async function handleOnDateChange(value: PickerValue): Promise<void> {
-    if (checked) {
-      setDate(value?.toDate());
+    const pickedDate = value?.toDate();
+    const canAdd = await isAvailable(pickedDate!);
+
+    if (checked && canAdd) {
+      setDate(pickedDate);
       setShowDialog(true);
       return;
     }
+  }
+  async function isAvailable(pickedValue: Date): Promise<boolean> {
+    const response = await fetch(
+      `/api/paychecks?date=${pickedValue.toISOString()}&view=${view}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const jsonResponse = await response.json();
+    const result = jsonResponse.result;
+    return !result;
   }
 
   return (

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { PayType } from "@/types/pay.type";
+import { Pay, PayType } from "@/types/pay.type";
 
 export async function POST(req: NextRequest) {
   try {

@@ -18,7 +18,7 @@ export default function Home() {
   );
   const [id, setId] = useState<string | null>(null);
   const [view, setView] = useState<"TIP" | "SALARY">("TIP");
-
+  const [canAdd, setCanAdd] = useState<boolean>(false);
   const fetchPaycheckStats = useCallback(async (): Promise<void> => {
     const response = await fetch(`/api/paychecks/stats?view=${view}`, {
       method: "GET",
@@ -38,6 +38,10 @@ export default function Home() {
   useEffect(() => {
     fetchPaycheckStats();
   }, [id, fetchPaycheckStats]);
+
+  useEffect(() => {
+    setCanAdd(selectedAmount === 0);
+  }, [selectedAmount]);
 
   function setDeleted() {
     setSelectedAmount(0);
@@ -90,6 +94,7 @@ export default function Home() {
             onDateChange={(date) => handleOnDateChange(date!)}
             updateStats={(date) => handleOnUpdateStats(date)}
             view={view}
+            canAdd={canAdd}
           />
         </div>
         <div className=" flex items-center justify-center gap-2 bg-dark-slate-gray  rounded-lg mt-2">
