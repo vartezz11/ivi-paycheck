@@ -61,7 +61,6 @@ export default function Home() {
 
     const jsonResponse = await response.json();
     const result = jsonResponse.result;
-    console.log(result);
 
     if (result) {
       setSelectedAmount(result.amount);

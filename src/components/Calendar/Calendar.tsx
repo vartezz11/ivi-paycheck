@@ -60,7 +60,7 @@ export const Calendar = ({
             className=""
             checked={checked}
             onChange={() => {
-              setChecked(!checked);
+              setChecked((prev) => !prev);
             }}
           />
           <span className=" text-xl text-ivory-mist font-oswald">
